@@ -17,6 +17,6 @@ Automated CV scoring based on averaging the predictions of multiple ranking mode
 ## Installation in Collab
 ```python
 !pip install dill sentence-transformers scikit-learn umap-learn hdbscan catboost
-!git clone https://github.com/<your_user>/my_resume_scorer.git
+!git clone https://github.com/InnaKolesn/Automated_Candidate_Selection
 import sys
-sys.path.append("/content/my_resume_scorer/src")
+sys.path.append("/content/Automated_Candidate_Selection/src")
