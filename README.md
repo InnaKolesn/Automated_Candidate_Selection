@@ -1,6 +1,13 @@
 # Automated_Candidate_Selection
 
-Automated CV scoring based on averaging the predictions of multiple ranking models
+Automated CV scoring based on averaging the predictions of multiple ranking models:
+- Univercity Rating
+- Education Level and Education Status
+- Study Direction
+- Experience Field
+- Hard Skills
+- Soft Skills
+- IT Courses
 
 ## Structure 
 
