@@ -1,1 +1,9 @@
-
+```txt
+dill
+sentence-transformers
+scikit-learn
+umap-learn
+hdbscan
+catboost
+pandas
+numpy
