@@ -1,16 +1,81 @@
-import os
-import time
-import random
-import re
-
 import numpy as np
 import pandas as pd
+
+import re
+import pymorphy3
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+import nltk
+
+from deep_translator import GoogleTranslator
+from sentence_transformers import SentenceTransformer
+from transformers import AutoTokenizer, AutoModel
 
 import requests
 from bs4 import BeautifulSoup
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
-from deep_translator import GoogleTranslator
+
+# Подгружаем русские стоп-слова и токенизатор
+nltk.download('stopwords')
+nltk.download('punkt')
+
+russian_stopwords = set(stopwords.words('russian'))
+morph = pymorphy3.MorphAnalyzer()
+
+
+def preprocess_text(text:str, lemmatize = True):
+    """
+    Функция для предварительной обработки текста:
+      - Приведение к нижнему регистру.
+      - Удаление знаков препинания и лишних символов.
+      - Токенизация.
+      - Удаление стоп-слов.
+      - (Опционально) Лемматизация.
+    """
+
+    word_mapper = {
+                    'разработчик': 'программист',
+                    'програмист': 'программист',
+                    'сайентист': 'ученый',
+                    'дата': 'информация',
+                    'данные': 'информация',
+                    'программный': 'программист',
+                    'информатика': 'информация',
+                    'информационный': 'информация',
+                }
+
+    # Приводим к нижнему регистру
+    text = text.lower()
+
+    # Удаление не-буквенных символов
+    text = re.sub(r'[^а-яёa-z\s]', ' ', text).strip()
+
+    # Токенизация текста
+    tokens = word_tokenize(text, language="russian")
+
+    tokens = [word_mapper.get(word,word) for word in tokens]
+
+    # Удаление стоп-слов и лемматизация
+    if lemmatize:
+      tokens = [
+          morph.normal_forms(token)[0] 
+          for token in tokens
+          if token not in russian_stopwords and len(token) > 2
+      ]
+    else:
+       tokens = [
+          token
+          for token in tokens
+          if token not in russian_stopwords and len(token) > 2
+      ]
+
+    tokens = [word_mapper.get(word,word) for word in tokens]
+
+    # Сборка обратно в текст
+    result =  ' '.join(tokens)
+
+    return ' '.join(result.split())
 
 
 def contains_latin(text):
@@ -121,4 +186,3 @@ def parse_experience(exp_str):
         return value
     else:
         return value
-    
