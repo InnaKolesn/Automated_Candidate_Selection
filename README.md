@@ -23,19 +23,19 @@ Automated_Candidate_Selection/
 ├── models/                    # Сохранённые .dill модели
 │   └── study_direction_cluster.dill   # пример кластеризации Study Direction
 │
-├── src/scorer/                # Исходный код ключевых компонентов
-│   ├── clusterer.py           # `Clusterer` для PCA→UMAP→HDBSCAN
-│   ├── config.py              # Константы и пути (имена моделей, колонок)
-│   ├── embeddings.py          # Утилиты для SBERT-эмбеддингов (mean/max, кеширование)
-│   ├── pipelines.py           # `StudyDirectionPipeline`, `ExperienceFieldPipeline`, `CombinedScoringPipeline`
-│   ├── ranker.py              # Обёртки `CatBoostRanker` и метрики (PairLogit, корреляции)
-│   └── utils.py               # Текстовая предобработка, мапперы, загрузка данных
+├── src/scorer/                # Main components soyrce code
+│   ├── clusterer.py           # `Clusterer` PCA→UMAP→HDBSCAN
+│   ├── config.py              # Constans and paths
+│   ├── embeddings.py          #  BERT-embeddings utils (mean/max, cash)
+│   ├── pipelines.py           # `StudyDirectionPipeline`, `ExperienceFieldPipeline`, etc
+│   ├── ranker.py              # `CatBoostRanker`- wrapper
+│   └── utils.py               # Text-preprossing
 │
-├── notebooks/                 # Примеры использования
-│   └── example_usage.ipynb    # Как загрузить модели и скорить резюме в Colab
+├── notebooks/                 
+│   └── example_usage.ipynb    # How to load a model in Google Colab
 │
-├── README.md                  # Документация и инструкции
-└── requirements.txt           # Зависимости проекта
+├── README.md                  
+└── requirements.txt           
 ```
 
 ## Installation (e.g. in Colab)
